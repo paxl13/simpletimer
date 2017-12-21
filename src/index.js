@@ -1,7 +1,6 @@
 const _ = require('lodash');
 const uuid = require('uuid');
-const colors = new (require('colors')).constructor({enabled: true});
-const R = require('ramda');
+const colors = require('colors');
 colors.enabled = true;
 
 let colorsFn = [
@@ -16,14 +15,9 @@ let colorsFn = [
 ];
 
 let getColorFn = (id) => {
-  let fn = R.pipe(
-    R.map(c => c.charCodeAt()),
-    R.sum,
-    s => s % colorsFn.length,
-    R.prop(R.__, colorsFn)
-  )(id);
-
-  return fn;
+  let charSum = _.reduce(_.map(id, c => c.charCodeAt()), (a, v) => a + v, 0);
+  let fnId = charSum % colorsFn.length;
+  return colorsFn[fnId];
 };
 
 let ts = {
