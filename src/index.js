@@ -1,25 +1,26 @@
 const _ = require('lodash');
 const uuid = require('uuid');
-const chalk = new (require('chalk')).constructor({enabled: true});
+const colors = new (require('colors')).constructor({enabled: true});
 const R = require('ramda');
+colors.enabled = true;
 
-let colors = [
-  chalk.red,
-  chalk.green,
-  chalk.yellow,
-  chalk.blue,
-  chalk.magenta,
-  chalk.cyan,
-  chalk.white,
-  chalk.gray
+let colorsFn = [
+  colors.red,
+  colors.green,
+  colors.yellow,
+  colors.blue,
+  colors.magenta,
+  colors.cyan,
+  colors.white,
+  colors.gray
 ];
 
 let getColorFn = (id) => {
   let fn = R.pipe(
     R.map(c => c.charCodeAt()),
     R.sum,
-    s => s % colors.length,
-    R.prop(R.__, colors)
+    s => s % colorsFn.length,
+    R.prop(R.__, colorsFn)
   )(id);
 
   return fn;
@@ -84,14 +85,14 @@ function splitAverage(timingId, name) {
   let s = split(timingId);
   let a = Math.round(avg(name, s));
 
-  return `${getColorFn(name)(name)} -> ${chalk.red(s)} avg: ${chalk.bold.cyan(a)}`;
+  return `${getColorFn(name)(name)} -> ${colors.red(s)} avg: ${colors.bold.cyan(a)}`;
 };
 
 function stopAverage(timingId, name) {
   let s = stop(timingId);
   let a = Math.round(avg(name, s));
 
-  return `${getColorFn(name)(name)} -> ${chalk.red(s)} avg: ${chalk.bold.cyan(a)}`;
+  return `${getColorFn(name)(name)} -> ${colors.red(s)} avg: ${colors.bold.cyan(a)}`;
 }
 
 module.exports = {

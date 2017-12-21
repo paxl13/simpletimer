@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/paxl13/simpletimer#readme",
   "dependencies": {
-    "chalk": "^2.3.0",
-    "lodash": "^4.17.4",
-    "ramda": "^0.25.0",
-    "uuid": "^3.1.0"
+    "colors": "~1.1.2",
+    "lodash": "~4.17.4",
+    "ramda": "~0.25.0",
+    "uuid": "~3.1.0"
   }
 }
